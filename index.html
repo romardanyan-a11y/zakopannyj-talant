@@ -1,0 +1,877 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Тест к проповеди о талантах: найди свой закопанный дар и выбери одно дело на неделю.">
+<meta property="og:title" content="Закопанный талант">
+<meta property="og:description" content="Найди дар, который Бог уже дал тебе, и выбери одно дело до субботы.">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Закопанный талант</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@500;700&display=swap">
+<style>
+/* Layout: one narrow column, one screen at a time — digging down through soil layers to the buried coin. */
+:root{
+  --bg:#EFF1E8; --surface:#FBFBF7; --surface-2:#F5F6EF; --ink:#211C15; --muted:#666052; --line:#D8D6C8;
+  --gold:#A9780F; --gold-hi:#D6A23A; --gold-soft:#F4E7C6; --leaf:#3D6B33; --leaf-soft:#E0EAD5;
+  --soil:#5B4531; --soil-2:#7C6045; --soil-3:#9C7D5E; --grass:#5E8A44; --sky:#FBFBF7;
+  --on-accent:#FFFFFF; --shadow:0 1px 2px rgba(40,30,10,.06), 0 8px 24px rgba(40,30,10,.07);
+  --f-display:"Unbounded","Golos Text",system-ui,sans-serif;
+  --f-body:"Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --ease:cubic-bezier(.22,.8,.24,1);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16120E; --surface:#211B15; --surface-2:#1B1611; --ink:#F1ECE2; --muted:#ADA493; --line:#3A3128;
+    --gold:#E2B24A; --gold-hi:#F3CF7A; --gold-soft:#3A2E15; --leaf:#93C47A; --leaf-soft:#20301B;
+    --soil:#3A2D21; --soil-2:#4A392A; --soil-3:#5E4A37; --grass:#4E7A3A; --sky:#211B15;
+    --on-accent:#1A140C; --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25); color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16120E; --surface:#211B15; --surface-2:#1B1611; --ink:#F1ECE2; --muted:#ADA493; --line:#3A3128;
+  --gold:#E2B24A; --gold-hi:#F3CF7A; --gold-soft:#3A2E15; --leaf:#93C47A; --leaf-soft:#20301B;
+  --soil:#3A2D21; --soil-2:#4A392A; --soil-3:#5E4A37; --grass:#4E7A3A; --sky:#211B15;
+  --on-accent:#1A140C; --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25); color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{
+  background:var(--bg); color:var(--ink); font-family:var(--f-body); font-size:17px; line-height:1.5;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+  padding-block:18px 48px; -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+.wrap{max-width:560px; margin:0 auto}
+.screen{display:flex; flex-direction:column; gap:20px}
+.eyebrow{font-size:12.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); font-weight:600}
+h1,h2,h3{font-family:var(--f-display); text-wrap:balance; margin:0; letter-spacing:-.01em}
+h1{font-size:clamp(32px, 9vw, 44px); line-height:1.05; font-weight:700}
+h2{font-size:clamp(22px, 6.2vw, 28px); line-height:1.15; font-weight:700}
+h3{font-size:16px; line-height:1.25; font-weight:700}
+p{margin:0}
+.lead{font-size:18px; max-width:60ch}
+.muted{color:var(--muted)}
+.small{font-size:15px}
+.verse{margin:0; border-left:3px solid var(--gold); padding:2px 0 2px 14px; font-size:16px}
+.verse cite{display:block; font-style:normal; font-size:14px; color:var(--muted); margin-top:4px}
+
+/* Screen transitions */
+.in-fwd{animation:inFwd .45s var(--ease) both}
+.in-back{animation:inBack .45s var(--ease) both}
+@keyframes inFwd{from{opacity:.001; transform:translateX(28px)} to{opacity:1; transform:none}}
+@keyframes inBack{from{opacity:.001; transform:translateX(-28px)} to{opacity:1; transform:none}}
+.rise{animation:rise .5s var(--ease) both}
+@keyframes rise{from{opacity:.001; transform:translateY(10px)} to{opacity:1; transform:none}}
+
+/* Ground illustration */
+.hero{position:relative; border-radius:22px; overflow:hidden; box-shadow:var(--shadow)}
+.ground{width:100%; max-width:100%; height:auto; display:block}
+.ground .coin{transition:transform 1.3s var(--ease)}
+.ground .coin-face{animation:bob 3.2s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)} 50%{transform:translateY(-3px)}}
+.ground .glow{animation:pulse 2.8s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.45} 50%{opacity:.8}}
+.ground .sprout{transform-origin:200px 80px; animation:sway 4s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(-3deg)} 50%{transform:rotate(3deg)}}
+.ground.risen .coin{transform:translateY(-96px)}
+.ground.risen .glow{animation:none; opacity:1}
+.sparks{position:absolute; inset:0; pointer-events:none}
+.sparks i{
+  position:absolute; left:50%; top:46%; width:7px; height:7px; border-radius:50%; background:var(--gold-hi);
+  opacity:0; animation:spark 1.2s var(--ease) forwards; animation-delay:var(--d);
+}
+.sparks i.star{width:10px; height:10px; border-radius:2px; transform:rotate(45deg)}
+@keyframes spark{
+  0%{opacity:0; transform:translate(-50%,-50%) scale(.4)}
+  15%{opacity:1}
+  100%{opacity:0; transform:translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1)}
+}
+
+/* Buttons */
+button{font:inherit; color:inherit}
+.btn{
+  appearance:none; border:0; cursor:pointer; border-radius:16px; min-height:58px; padding:14px 22px;
+  font-weight:600; font-size:18px; display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  transition:transform .14s var(--ease), background-color .2s, box-shadow .2s, opacity .2s;
+}
+.btn:active{transform:scale(.975)}
+.btn-primary{
+  background:linear-gradient(180deg, var(--gold-hi), var(--gold)); color:var(--on-accent);
+  box-shadow:0 1px 0 rgba(255,255,255,.35) inset, 0 6px 18px color-mix(in srgb, var(--gold) 35%, transparent);
+}
+.btn-primary[disabled]{opacity:.45; cursor:not-allowed; box-shadow:none}
+.btn-ghost{background:var(--surface); color:var(--ink); border:1.5px solid var(--line)}
+.btn-wide{width:100%}
+.btn .arrow{transition:transform .2s var(--ease)}
+.btn:hover .arrow{transform:translateX(3px)}
+.link{background:none; border:0; padding:8px 2px; color:var(--muted); cursor:pointer; font-size:16px; text-decoration:underline; text-underline-offset:3px; align-self:flex-start}
+:is(.btn,.link,.opt,.chip,.choice,.card-opt):focus-visible{outline:3px solid var(--leaf); outline-offset:3px}
+
+/* Intro facts */
+.facts{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:10px}
+.fact{background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:12px 12px 14px; display:flex; flex-direction:column; gap:2px}
+.fact b{font-family:var(--f-display); font-size:20px; font-weight:700; font-variant-numeric:tabular-nums}
+.fact span{font-size:13px; color:var(--muted); line-height:1.3}
+
+/* Age choice */
+.choices{display:flex; flex-direction:column; gap:10px}
+.choice{
+  text-align:left; background:var(--surface); border:1.5px solid var(--line); border-radius:18px; padding:16px 18px;
+  cursor:pointer; display:flex; align-items:center; gap:14px; min-height:68px;
+  transition:border-color .2s, transform .15s var(--ease), box-shadow .2s;
+}
+.choice:hover{border-color:var(--gold); box-shadow:var(--shadow)}
+.choice:active{transform:scale(.985)}
+.choice .ico{width:42px; height:42px; border-radius:12px; background:var(--gold-soft); display:grid; place-items:center; flex:0 0 auto}
+.choice .t{display:flex; flex-direction:column; min-width:0}
+.choice b{font-size:18px; font-weight:600}
+.choice span.sub{font-size:15px; color:var(--muted)}
+
+/* Dig meter on the question screen */
+.dig{border-radius:18px; overflow:hidden; background:var(--soil-3); box-shadow:var(--shadow)}
+.dig svg{display:block; width:100%; height:auto}
+.dig .shaft{transition:height .45s var(--ease)}
+.dig .shovel{transition:transform .45s var(--ease)}
+.dig-row{display:flex; justify-content:space-between; align-items:baseline; gap:12px}
+.dig-count{font-variant-numeric:tabular-nums; font-weight:600; font-size:15px; color:var(--muted)}
+
+/* Question */
+.q-card{display:flex; flex-direction:column; gap:16px}
+.q-text{font-size:clamp(22px, 5.8vw, 26px); line-height:1.3; font-weight:600; text-wrap:pretty; min-height:3.9em}
+.opts{display:flex; flex-direction:column; gap:10px}
+.opt{
+  position:relative; overflow:hidden; display:flex; align-items:center; gap:14px; width:100%; text-align:left; cursor:pointer;
+  background:var(--surface); border:1.5px solid var(--line); border-radius:16px; padding:12px 16px; min-height:60px;
+  font-size:18px; font-weight:500; transition:border-color .2s, transform .12s var(--ease);
+}
+.opt::before{content:""; position:absolute; inset:0; background:var(--gold-soft); transform:scaleX(0); transform-origin:left; transition:transform .28s var(--ease)}
+.opt > *{position:relative}
+.opt:hover{border-color:var(--gold)}
+.opt:active{transform:scale(.985)}
+.opt[aria-pressed="true"]{border-color:var(--gold)}
+.opt[aria-pressed="true"]::before{transform:scaleX(1)}
+.dots{display:inline-flex; gap:4px; flex:0 0 auto}
+.dots s{width:9px; height:9px; border-radius:50%; background:var(--line); display:block}
+.dots s.on{background:var(--gold)}
+.qnav{display:flex; justify-content:space-between; align-items:center; gap:12px}
+.q-swap{animation:qswap .32s var(--ease) both}
+@keyframes qswap{from{opacity:.001; transform:translateY(8px)} to{opacity:1; transform:none}}
+
+/* Already-doing chips */
+.chips{display:flex; flex-wrap:wrap; gap:10px}
+.chip{
+  cursor:pointer; border:1.5px solid var(--line); background:var(--surface); border-radius:99px; padding:10px 16px;
+  font-size:16px; min-height:48px; display:inline-flex; align-items:center; gap:10px; text-align:left;
+  transition:border-color .2s, background-color .2s, transform .12s var(--ease);
+}
+.chip:active{transform:scale(.97)}
+.chip[aria-pressed="true"]{border-color:var(--leaf); background:var(--leaf-soft)}
+.tick{width:20px; height:20px; border-radius:50%; border:1.5px solid var(--line); flex:0 0 auto; display:inline-grid; place-items:center; transition:background-color .2s, border-color .2s}
+.chip[aria-pressed="true"] .tick, .card-opt[aria-checked="true"] .tick{background:var(--leaf); border-color:var(--leaf)}
+.chip[aria-pressed="true"] .tick::after, .card-opt[aria-checked="true"] .tick::after{content:""; width:5px; height:9px; border:solid var(--surface); border-width:0 2px 2px 0; transform:rotate(45deg) translate(-1px,-1px)}
+
+/* Pick screen */
+.section{display:flex; flex-direction:column; gap:12px}
+.cards{display:flex; flex-direction:column; gap:10px}
+.card-opt{
+  text-align:left; width:100%; cursor:pointer; background:var(--surface); border:1.5px solid var(--line); border-radius:18px;
+  padding:16px; display:flex; flex-direction:column; gap:8px; transition:border-color .2s, box-shadow .2s, transform .12s var(--ease);
+}
+.card-opt:active{transform:scale(.99)}
+.card-opt[aria-checked="true"]{border-color:var(--gold); box-shadow:0 0 0 3px color-mix(in srgb, var(--gold) 22%, transparent)}
+.card-top{display:flex; align-items:center; gap:12px}
+.card-top .nm{font-family:var(--f-display); font-size:19px; font-weight:700; line-height:1.15; flex:1 1 auto; min-width:0}
+.badge{font-size:12px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--gold); background:var(--gold-soft); border-radius:99px; padding:4px 10px; flex:0 0 auto}
+.card-desc{font-size:15.5px; color:var(--muted)}
+.meter{height:6px; border-radius:99px; background:var(--line); overflow:hidden}
+.meter i{display:block; height:100%; background:var(--gold); border-radius:99px; transition:width .6s var(--ease)}
+.card-opt .more{display:none}
+.card-opt[aria-checked="true"] .more{display:block}
+.acts{display:flex; flex-direction:column; gap:10px}
+.act{
+  text-align:left; width:100%; cursor:pointer; background:var(--surface); border:1.5px solid var(--line); border-radius:16px;
+  padding:14px 16px; display:flex; gap:12px; align-items:flex-start; font-size:16.5px; line-height:1.4;
+  transition:border-color .2s, background-color .2s, transform .12s var(--ease);
+}
+.act:active{transform:scale(.99)}
+.act[aria-checked="true"]{border-color:var(--leaf); background:var(--leaf-soft)}
+.act .tick{margin-top:2px}
+.act[aria-checked="true"] .tick{background:var(--leaf); border-color:var(--leaf)}
+.act[aria-checked="true"] .tick::after{content:""; width:5px; height:9px; border:solid var(--surface); border-width:0 2px 2px 0; transform:rotate(45deg) translate(-1px,-1px)}
+.act:focus-visible{outline:3px solid var(--leaf); outline-offset:3px}
+.own{width:100%; min-height:96px; border-radius:14px; border:1.5px solid var(--line); background:var(--surface); color:var(--ink); padding:12px 14px; font:inherit; font-size:16.5px; resize:vertical}
+.own:focus{outline:none; border-color:var(--leaf)}
+.sticky-cta{position:sticky; bottom:0; padding-block:12px calc(12px + env(safe-area-inset-bottom, 0px)); background:linear-gradient(180deg, transparent, var(--bg) 30%)}
+
+details.all{background:var(--surface); border:1px solid var(--line); border-radius:18px; padding:14px 16px}
+details.all summary{cursor:pointer; font-weight:600; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:12px}
+details.all summary::-webkit-details-marker{display:none}
+details.all summary::after{content:"+"; font-size:22px; color:var(--muted); line-height:1}
+details.all[open] summary::after{content:"−"}
+.ranks{display:flex; flex-direction:column; gap:10px; margin:14px 0 0; padding:0; list-style:none}
+.rank{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:4px 12px; align-items:center}
+.rank-name{font-size:15px; font-weight:500; min-width:0}
+.rank-name em{font-style:normal; font-size:11.5px; color:var(--leaf); font-weight:700; margin-left:6px; letter-spacing:.04em; text-transform:uppercase}
+.rank-val{font-size:14px; color:var(--muted); font-variant-numeric:tabular-nums}
+.rank-bar{grid-column:1 / -1; height:7px; border-radius:99px; background:var(--line); overflow:hidden}
+.rank-bar i{display:block; height:100%; background:var(--soil-3); border-radius:99px}
+.rank.buried .rank-bar i{background:var(--gold)}
+.note{font-size:14px; color:var(--muted)}
+
+/* Commit screen */
+.pledge{
+  position:relative; overflow:hidden; border-radius:22px; padding:22px 20px 20px; display:flex; flex-direction:column; gap:12px;
+  background:linear-gradient(160deg, var(--gold-soft), var(--surface) 70%); border:1.5px solid color-mix(in srgb, var(--gold) 45%, transparent); box-shadow:var(--shadow);
+}
+.pledge .label{font-size:12.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--gold); font-weight:700}
+.pledge .gift{font-family:var(--f-display); font-size:clamp(26px, 7.4vw, 34px); line-height:1.08; font-weight:700; text-wrap:balance}
+.pledge .task{font-size:19px; line-height:1.4; font-weight:600}
+.pledge .coin-mark{position:absolute; right:-18px; top:-18px; opacity:.9}
+.row{display:flex; flex-wrap:wrap; gap:10px}
+.row .btn{flex:1 1 180px}
+.panel{background:var(--surface); border:1px solid var(--line); border-radius:18px; padding:18px; display:flex; flex-direction:column; gap:10px}
+.done-box{display:flex; align-items:center; gap:14px; cursor:pointer; text-align:left; width:100%; background:var(--surface); border:1.5px dashed var(--line); border-radius:18px; padding:16px; font-size:17px; font-weight:600}
+.done-box[aria-checked="true"]{border-style:solid; border-color:var(--leaf); background:var(--leaf-soft)}
+.done-box .tick{width:26px; height:26px}
+.done-box[aria-checked="true"] .tick{background:var(--leaf); border-color:var(--leaf)}
+.done-box[aria-checked="true"] .tick::after{content:""; width:7px; height:12px; border:solid var(--surface); border-width:0 2.5px 2.5px 0; transform:rotate(45deg) translate(-1px,-1px)}
+.joy{display:flex; flex-direction:column; gap:6px}
+.copyfallback{width:100%; min-height:110px; border-radius:12px; border:1px solid var(--line); background:var(--bg); color:var(--ink); padding:10px; font:inherit; font-size:15px}
+.toast{position:fixed; left:50%; bottom:calc(20px + env(safe-area-inset-bottom, 0px)); transform:translate(-50%, 20px); background:var(--ink); color:var(--bg); padding:12px 18px; border-radius:99px; font-weight:600; font-size:15px; opacity:0; transition:opacity .25s, transform .25s var(--ease); pointer-events:none; z-index:20}
+.toast.on{opacity:1; transform:translate(-50%, 0)}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important; transition:none!important}
+}
+@media (max-width:370px){ .facts{grid-template-columns:1fr} }
+</style>
+
+</head>
+<body>
+<main class="wrap" id="app">
+  <!-- INTRO -->
+  <section id="s-intro" class="screen in-fwd">
+    <div class="eyebrow">Проповедь о талантах · Мф 25:14–30</div>
+    <div class="hero" id="hero1"></div>
+    <h1>Закопанный талант</h1>
+    <p class="lead">Третий раб из притчи не потерял свой талант. Он просто закопал его, потому что боялся. Этот тест поможет найти дары, которые Бог уже дал тебе, но которые пока лежат в земле. А дальше ты сам выберешь, что сделаешь на этой неделе.</p>
+    <div class="facts" aria-label="Коротко о тесте">
+      <div class="fact"><b>33</b><span>коротких утверждения</span></div>
+      <div class="fact"><b>5 мин</b><span>чтобы пройти</span></div>
+      <div class="fact"><b>1 дело</b><span>до следующей субботы</span></div>
+    </div>
+    <p class="small muted">Отвечай как есть, а не как «правильно». Детям лучше проходить вместе с родителями. Ответы хранятся только на твоём телефоне.</p>
+    <button class="btn btn-primary btn-wide" id="b-start" type="button">Начать копать <span class="arrow" aria-hidden="true">→</span></button>
+    <button class="link" id="b-resume" type="button" hidden>Продолжить с того места, где остановился</button>
+    <button class="link" id="b-mine" type="button" hidden>Открыть моё дело на неделю</button>
+  </section>
+
+  <!-- AGE -->
+  <section id="s-age" class="screen" hidden>
+    <div class="eyebrow">Шаг 1 из 4</div>
+    <h2>Кто проходит тест?</h2>
+    <p class="muted">Так варианты дел будут по силам и по возрасту.</p>
+    <div class="choices" id="age-choices"></div>
+    <button class="link" id="b-age-back" type="button">← Назад</button>
+  </section>
+
+  <!-- QUESTIONS -->
+  <section id="s-q" class="screen" hidden>
+    <div class="dig-row">
+      <span class="eyebrow">Шаг 2 из 4 · копаем</span>
+      <span class="dig-count" id="q-count">1 / 33</span>
+    </div>
+    <div class="dig" aria-hidden="true">
+      <svg viewBox="0 0 400 96" preserveAspectRatio="xMidYMid slice">
+        <rect x="0" y="0" width="400" height="16" fill="var(--sky)"/>
+        <rect x="0" y="14" width="400" height="6" fill="var(--grass)"/>
+        <rect x="0" y="20" width="400" height="26" fill="var(--soil-3)"/>
+        <rect x="0" y="46" width="400" height="26" fill="var(--soil-2)"/>
+        <rect x="0" y="72" width="400" height="24" fill="var(--soil)"/>
+        <g fill="var(--soil)" opacity=".45"><circle cx="40" cy="34" r="3"/><circle cx="350" cy="40" r="4"/><circle cx="110" cy="62" r="3"/><circle cx="300" cy="66" r="3"/><circle cx="70" cy="84" r="4"/></g>
+        <rect class="shaft" id="dig-shaft" x="190" y="20" width="20" height="0" rx="3" fill="var(--surface-2)" opacity=".9"/>
+        <g class="shovel" id="dig-shovel">
+          <rect x="198" y="-2" width="4" height="18" rx="2" fill="var(--ink)" opacity=".75"/>
+          <path d="M193 15 h14 v6 q-7 7 -14 0 z" fill="var(--ink)" opacity=".75"/>
+        </g>
+        <g id="dig-coin"><circle cx="200" cy="84" r="9" fill="var(--gold)"/><circle cx="200" cy="84" r="5.5" fill="none" stroke="var(--gold-soft)" stroke-width="1.6"/></g>
+      </svg>
+    </div>
+    <div class="q-card" id="q-card">
+      <p class="q-text" id="q-text"></p>
+      <div class="opts" id="q-opts" role="group" aria-label="Насколько это про тебя"></div>
+    </div>
+    <div class="qnav">
+      <button class="link" id="b-back" type="button">← Назад</button>
+      <span class="small muted" id="kbd-hint">Можно нажимать цифры 1–5</span>
+    </div>
+  </section>
+
+  <!-- ALREADY DOING -->
+  <section id="s-done" class="screen" hidden>
+    <div class="eyebrow">Шаг 3 из 4</div>
+    <h2>Чем ты уже служишь регулярно?</h2>
+    <p class="muted">Отметь всё, что ты уже делаешь. Мы ищем то, что пока закопано, поэтому эти дары отложим в сторону. Если ничего не подходит, просто нажми «Дальше».</p>
+    <div class="chips" id="done-chips"></div>
+    <button class="btn btn-primary btn-wide" id="b-finish" type="button">Дальше — к кладу <span class="arrow" aria-hidden="true">→</span></button>
+    <button class="link" id="b-done-back" type="button">← Вернуться к вопросам</button>
+  </section>
+
+  <!-- PICK -->
+  <section id="s-pick" class="screen" hidden>
+    <div class="hero" id="hero2"><div class="sparks" id="sparks"></div></div>
+    <div class="section">
+      <div class="eyebrow">Шаг 4 из 4 · ты докопал</div>
+      <h2 id="pick-title">Вот что у тебя закопано</h2>
+      <p class="muted" id="pick-sub">Выбери дар, который хочешь выкопать на этой неделе. Первый совпал с твоими ответами сильнее всего, но решать тебе.</p>
+      <div class="cards" id="gift-cards" role="radiogroup" aria-label="Закопанные дары"></div>
+    </div>
+    <div class="section" id="act-section">
+      <h3 id="act-title">Что ты сделаешь до субботы?</h3>
+      <p class="muted small">Выбери одно дело. Можно придумать своё.</p>
+      <div class="acts" id="acts" role="radiogroup" aria-label="Дело на неделю"></div>
+      <textarea class="own" id="own-text" placeholder="Например: позвоню бабушке Вале из церкви и спрошу, чем помочь" hidden></textarea>
+    </div>
+    <details class="all">
+      <summary>Все дары по твоим ответам</summary>
+      <ul class="ranks" id="ranks"></ul>
+      <p class="note" style="margin-top:12px">Тест не определяет дары. Их даёт Святой Дух, «разделяя каждому особо, как Ему угодно» (1 Кор 12:11). Результат — повод помолиться, попробовать и спросить близких, что они в тебе видят.</p>
+    </details>
+    <div class="sticky-cta">
+      <button class="btn btn-primary btn-wide" id="b-pledge" type="button" disabled>Я берусь</button>
+    </div>
+  </section>
+
+  <!-- PLEDGE -->
+  <section id="s-pledge" class="screen" hidden>
+    <div class="pledge" id="pledge">
+      <svg class="coin-mark" width="96" height="96" viewBox="0 0 96 96" aria-hidden="true">
+        <circle cx="48" cy="48" r="40" fill="var(--gold)" opacity=".18"/>
+        <circle cx="48" cy="48" r="28" fill="var(--gold)" opacity=".35"/>
+      </svg>
+      <div class="label" id="pl-label">Моё дело до субботы</div>
+      <div class="gift" id="pl-gift"></div>
+      <p class="task" id="pl-task"></p>
+      <blockquote class="verse" id="pl-verse"></blockquote>
+    </div>
+    <div class="row">
+      <button class="btn btn-ghost" id="b-copy" type="button">Скопировать</button>
+      <button class="btn btn-ghost" id="b-change" type="button">Выбрать другое</button>
+    </div>
+    <textarea class="copyfallback" id="copy-fallback" readonly hidden aria-label="Текст для копирования"></textarea>
+
+    <div class="panel">
+      <h3>Что мешало раньше?</h3>
+      <p>Третий раб сказал: «убоявшись, пошёл и скрыл талант твой в земле» (Мф 25:25). Страх, что не получится, что подумают люди, что «это не моё»… Назови свой страх Богу в молитве и сделай шаг всё равно.</p>
+      <p class="muted small">Господин одинаково похвалил того, кто принёс пять талантов, и того, кто принёс два. Бог смотрит на верность, а не на размер.</p>
+    </div>
+
+    <button class="done-box" id="b-did" type="button" role="checkbox" aria-checked="false">
+      <span class="tick" aria-hidden="true"></span>
+      <span id="did-text">Отметь, когда сделаешь</span>
+    </button>
+    <div class="panel joy" id="joy" hidden>
+      <h3>«Хорошо, добрый и верный раб!»</h3>
+      <p>«В малом ты был верен, над многим тебя поставлю; войди в радость господина твоего» (Мф 25:21). Расскажи кому-нибудь, что получилось, и выбери следующий шаг.</p>
+    </div>
+
+    <button class="link" id="b-restart" type="button">Пройти тест заново</button>
+  </section>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- Content ---------- */
+  var AGES = [
+    {id:"k", title:"Ребёнок",               sub:"до 12 лет, проходим с родителями", ico:"M12 4a3 3 0 1 1 0 6 3 3 0 0 1 0-6zm-4 16v-4a4 4 0 0 1 8 0v4"},
+    {id:"y", title:"Подросток или молодёжь", sub:"13–30 лет",  ico:"M12 3a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7zm-6 18v-3a6 6 0 0 1 12 0v3"},
+    {id:"a", title:"Взрослый",              sub:"31–59 лет",  ico:"M9 3.5a3 3 0 1 1 0 6 3 3 0 0 1 0-6zm7 2a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 21v-3a6 6 0 0 1 12 0v3m1-6.5a5 5 0 0 1 5 5V21"},
+    {id:"s", title:"Старшее поколение",     sub:"60 лет и старше", ico:"M11 3.5a3 3 0 1 1 0 6 3 3 0 0 1 0-6zM6 21v-3.5a5 5 0 0 1 10 0V21m3-9v9"}
+  ];
+
+  // Each action: [text, ages it suits]
+  var GIFTS = [
+    {id:"pray", name:"Молитва за других", doing:"Регулярно молюсь за других",
+     desc:"Ты чувствуешь чужую нужду и несёшь её Богу. Такие люди невидимо держат церковь.",
+     verse:"Много может усиленная молитва праведного.", ref:"Иак 5:16",
+     q:["Когда у кого-то беда, мне первым делом хочется за него помолиться.",
+        "Я могу долго молиться за других людей, и мне это не в тягость.",
+        "Я видел(а), как Бог отвечал на мои молитвы за других."],
+     acts:[
+      ["Выбрать одного человека и каждый вечер этой недели молиться за него по имени.", "kyas"],
+      ["Каждый вечер перед сном молиться с мамой или папой за друзей из класса.", "k"],
+      ["Спросить трёх друзей: «За что за тебя помолиться?» — и молиться за них всю неделю.", "ya"],
+      ["Помолиться вслух вместе с тем, кому сейчас тяжело, — при встрече или по телефону.", "yas"],
+      ["Завести молитвенный список и записывать, как Бог отвечает.", "yas"],
+      ["Узнать, кто в церкви болеет, молиться за каждого и одному из них позвонить.", "as"],
+      ["Помолиться за пастора и служителей и сказать им в субботу, что молишься.", "kyas"]]},
+    {id:"encourage", name:"Ободрение", doing:"Поддерживаю людей словом",
+     desc:"Ты замечаешь, кому тяжело, и находишь слова, после которых человеку легче жить и верить.",
+     verse:"Увещевайте друг друга и назидайте один другого.", ref:"1 Фес 5:11",
+     q:["Я замечаю, когда человеку грустно или тяжело, даже если он молчит.",
+        "Мне легко найти слова, которые поддержат и вдохновят.",
+        "Люди говорят, что после разговора со мной им становится легче."],
+     acts:[
+      ["Нарисовать открытку тому, кому грустно или кто болеет, и подарить её.", "k"],
+      ["Каждый день писать одному человеку, за что именно ты его ценишь.", "ya"],
+      ["Позвонить тому, кого давно не было в церкви, и сказать, что его не хватает. Без упрёков.", "yas"],
+      ["Написать от руки открытку подростку или молодому человеку из церкви с благословением.", "as"],
+      ["Сказать в субботу трём служителям, за что ты им благодарен.", "kyas"],
+      ["Поддержать добрым комментарием того, кто снимает или пишет о Боге.", "ya"],
+      ["Сказать маме, папе или учителю, что именно ты в них ценишь.", "k"]]},
+    {id:"hosp", name:"Гостеприимство", doing:"Принимаю гостей, встречаю новых людей",
+     desc:"Рядом с тобой людям тепло. Через накрытый стол и открытую дверь многие впервые чувствуют Божью любовь.",
+     verse:"Будьте страннолюбивы друг ко другу без ропота.", ref:"1 Пет 4:9",
+     q:["Мне нравится, когда у меня дома гости, и я люблю их угощать.",
+        "Я первым(ой) подхожу к новому человеку в церкви, чтобы он не стоял один.",
+        "Рядом со мной людям уютно, и они быстро расслабляются."],
+     acts:[
+      ["В субботу подойти к тому, кто стоит один или пришёл впервые, познакомиться и побыть рядом.", "kyas"],
+      ["Позвать на субботний обед человека или семью, которых ещё ни разу не звал.", "yas"],
+      ["Испечь угощение и угостить после богослужения тех, кто пришёл впервые.", "kas"],
+      ["Позвать друга, далёкого от церкви, на чай или пиццу.", "ya"],
+      ["Пригласить соседей на чай и познакомиться поближе.", "as"],
+      ["Помочь в субботу встречать людей у входа.", "kyas"]]},
+    {id:"teach", name:"Учительство", doing:"Веду уроки, изучения или субботнюю школу",
+     desc:"Тебе интересно копать в Писании и объяснять так, что другим становится понятно.",
+     verse:"Учитель ли, — в учении.", ref:"Рим 12:7",
+     q:["Мне нравится разбираться, что на самом деле написано в Библии, и объяснять это другим.",
+        "Когда я объясняю что-то сложное, людям становится понятно.",
+        "Мне интересно готовиться к уроку, изучению или обсуждению."],
+     acts:[
+      ["Пересказать младшему брату, сестре или другу любимую библейскую историю своими словами.", "k"],
+      ["Выучить памятный стих и объяснить семье, что он значит.", "ky"],
+      ["Разобрать один стих и объяснить его другу или в соцсетях: в посте, сторис или коротком видео.", "ya"],
+      ["Предложить провести одну субботнюю школу и договориться о дате.", "yas"],
+      ["Начать изучать Библию с одним человеком один на один.", "yas"],
+      ["Рассказать внукам или молодым, как Бог вёл вас в жизни.", "s"],
+      ["Нарисовать комикс по библейской истории и показать друзьям.", "k"]]},
+    {id:"serve", name:"Помощь делом", doing:"Помогаю руками в церкви",
+     desc:"Ты видишь, где нужна помощь, и делаешь, не дожидаясь просьбы и похвалы.",
+     verse:"Любовью служите друг другу.", ref:"Гал 5:13",
+     q:["Я сразу вижу, где нужна помощь руками: расставить, убрать, починить, донести.",
+        "Мне радостно помогать, даже если никто этого не заметит.",
+        "Я скорее сделаю дело сам(а), чем буду долго о нём говорить."],
+     acts:[
+      ["После служения убрать стулья или посуду — самому, без просьбы.", "kyas"],
+      ["Всю неделю помогать маме или папе по дому без напоминаний.", "k"],
+      ["Спросить у тех, кто отвечает за звук, кухню или уборку, чем помочь, и сделать это.", "ya"],
+      ["Помочь кому-то из церкви по хозяйству: починить, перевезти, собрать мебель.", "ya"],
+      ["Сходить в магазин или аптеку для пожилого человека.", "ya"],
+      ["Помочь в подготовке зала к субботе и научить этому кого-то из молодых.", "as"],
+      ["Помочь учителю детской субботней школы подготовить класс.", "k"],
+      ["Помочь соседу или кому-то из церкви по дому: приготовить еду, полить цветы, посидеть с детьми.", "as"]]},
+    {id:"mercy", name:"Милосердие", doing:"Навещаю больных и одиноких",
+     desc:"Ты не проходишь мимо боли. Там, где другим неловко, ты просто остаёшься рядом.",
+     verse:"Был болен, и вы посетили Меня.", ref:"Мф 25:36",
+     q:["Мне очень жалко тех, кто болеет, одинок или в беде, и я хочу что-то для них сделать.",
+        "Я могу спокойно побыть рядом с тем, кому плохо, и просто выслушать.",
+        "Я часто думаю о тех, о ком все забыли."],
+     acts:[
+      ["Вместе с родителями навестить пожилого соседа и принести рисунок или угощение.", "k"],
+      ["Поиграть с ребёнком, которого обычно никто не зовёт.", "k"],
+      ["Навестить того, кто болеет или живёт один, и просто посидеть, поговорить.", "yas"],
+      ["Позвонить двум одиноким людям и поговорить подольше.", "yas"],
+      ["Спросить у больного, что ему на самом деле нужно, и сделать это.", "ya"],
+      ["Отвезти продукты или горячую еду тому, кому сейчас трудно.", "yas"],
+      ["Позвонить с родителями бабушке или дедушке, которые живут одни, и спеть им песню.", "k"]]},
+    {id:"give", name:"Щедрость", doing:"Регулярно помогаю деньгами или вещами",
+     desc:"Тебе радостно отдавать. Ты замечаешь нужду раньше, чем о ней попросят.",
+     verse:"Доброхотно дающего любит Бог.", ref:"2 Кор 9:7",
+     q:["Мне радостно делиться деньгами, вещами или временем, когда я вижу нужду.",
+        "Я легко отдаю то, что мне дорого, если это поможет другому.",
+        "Я замечаю, кому чего не хватает, раньше, чем меня попросят."],
+     acts:[
+      ["Подарить свою игрушку или книгу тому, кому она нужнее.", "k"],
+      ["Разобрать вещи и отдать те, что пригодятся другим.", "kyas"],
+      ["Тайно помочь тому, кто в нужде: оплатить обед или купить нужную вещь. Никому не рассказывать.", "ya"],
+      ["Узнать о конкретной нужде в церкви или рядом с домом и закрыть её на этой неделе.", "yas"],
+      ["Подарить своё время: провести вечер с тем, кому одиноко.", "kyas"],
+      ["Поддержать служение детей или молодёжи деньгами или нужными вещами.", "as"]]},
+    {id:"lead", name:"Организация", doing:"Организую мероприятия и людей",
+     desc:"Ты видишь, как из хаоса сделать план, и люди охотно идут за тобой.",
+     verse:"Начальник ли, начальствуй с усердием.", ref:"Рим 12:8",
+     q:["Мне нравится продумывать план: что, когда, кто и в каком порядке.",
+        "Когда все растерялись, я спокойно беру дело в свои руки.",
+        "Люди охотно идут за мной, когда я что-то предлагаю."],
+     acts:[
+      ["Придумать и провести игру для младших детей в субботу.", "ky"],
+      ["Собрать друзей на одно общее доброе дело на этой неделе.", "kya"],
+      ["Организовать то, что в церкви никто не организовал: поход, обед, уборку. Составить план до субботы.", "ya"],
+      ["Помочь тем, кто готовит ближайшее мероприятие: план, задачи, напоминания людям.", "ya"],
+      ["Поделиться опытом с тем, кто организует служение, и подсказать, что улучшить.", "as"],
+      ["Составить план своей недели и найти в нём один час для служения людям.", "yas"],
+      ["Придумать, как всей семьёй сделать доброе дело для соседей, и помочь всё устроить.", "k"],
+      ["Собрать за чаем старших из церкви и вместе помолиться за молодёжь.", "s"]]},
+    {id:"tell", name:"Рассказывать о Боге", doing:"Рассказываю о Боге неверующим",
+     desc:"Тебе хочется, чтобы о Боге узнали те, кто ещё не знает. Твоя история может стать для кого-то первой встречей с Ним.",
+     verse:"Будьте всегда готовы всякому, требующему у вас отчёта в вашем уповании, дать ответ с кротостью и благоговением.", ref:"1 Пет 3:15",
+     q:["Мне хочется, чтобы мои неверующие друзья и родные узнали о Боге.",
+        "Мне легко заговорить о вере с незнакомым человеком.",
+        "Я радуюсь, когда могу рассказать, что Бог сделал в моей жизни."],
+     acts:[
+      ["Пригласить друга в церковь или на детскую программу.", "kyas"],
+      ["Рассказать другу библейскую историю, которая тебе нравится.", "k"],
+      ["Снять короткое видео или написать пост о том, что Бог сделал в твоей жизни.", "ya"],
+      ["Отправить другу ролик о Боге, который тебя тронул, и спросить, что он думает.", "yas"],
+      ["Сделать репост христианского видео с парой своих слов.", "yas"],
+      ["Рассказать коллеге или соседу, что вера значит для вас, — коротко и без давления.", "as"],
+      ["Рассказать бабушке, дедушке или другу, за что ты благодарен Богу.", "k"]]},
+    {id:"create", name:"Творчество", doing:"Служу музыкой, дизайном, видео или рукоделием",
+     desc:"Ты создаёшь красоту: звук, картинку, слово, вещь. Бог Сам наполнял мастеров Своим Духом.",
+     verse:"И исполнил его Духом Божиим, мудростью, разумением, ведением и всяким искусством.", ref:"Исх 35:31",
+     q:["Мне нравится создавать: петь, играть, рисовать, снимать, писать или мастерить.",
+        "Люди замечают, что у меня получается делать красиво.",
+        "Я часто представляю, как можно оформить или показать что-то по-новому."],
+     acts:[
+      ["Нарисовать картину или выучить песню о Боге и показать её родным.", "k"],
+      ["Сделать открытки или маленькие подарки для гостей церкви.", "kas"],
+      ["Сделать для церкви что-то своим даром: фото с богослужения, обложку, ролик или песню.", "ya"],
+      ["Договориться с музыкальной группой и спеть или сыграть на богослужении.", "kya"],
+      ["Предложить своё мастерство в оформлении зала или подарков гостям.", "yas"],
+      ["Научить молодого человека тому, что умеешь руками: вязать, шить, готовить, играть.", "as"]]},
+    {id:"mentor", name:"Наставничество", doing:"Наставляю младших или новичков",
+     desc:"Ты готов(а) долго идти рядом с человеком и помогать ему расти в вере и в жизни.",
+     verse:"Что слышал от меня, то передай верным людям, которые были бы способны и других научить.", ref:"2 Тим 2:2",
+     q:["Мне хочется помогать младшим или новичкам расти в вере и в жизни.",
+        "Ко мне часто приходят за советом.",
+        "Я готов(а) долго идти рядом с человеком, даже если результат будет не скоро."],
+     acts:[
+      ["Помочь младшему выучить памятный стих или освоиться в группе.", "k"],
+      ["Позвать новенького в свою компанию на этой неделе.", "ky"],
+      ["Встретиться с подростком или новеньким: прогулка, чай, разговор о жизни и вере.", "ya"],
+      ["Предложить молодому человеку встречаться раз в две недели и назначить первую встречу.", "as"],
+      ["Стать молитвенным наставником для одного молодого человека: узнать, что у него на сердце.", "as"],
+      ["Поделиться с младшим тем, что вы поняли в жизни на собственном опыте.", "ys"],
+      ["Помочь новенькому в детской группе найти друзей.", "k"]]}
+  ];
+
+  var SCALE = [
+    {v:1, t:"Совсем не про меня"}, {v:2, t:"Скорее нет"}, {v:3, t:"Иногда"},
+    {v:4, t:"Скорее да"}, {v:5, t:"Это точно про меня"}
+  ];
+
+  var QUESTIONS = [];
+  for (var round = 0; round < 3; round++) for (var g = 0; g < GIFTS.length; g++) QUESTIONS.push({gift:g, text:GIFTS[g].q[round]});
+
+  /* ---------- State ---------- */
+  var KEY = "buried-talent-v2";
+  function fresh(){ return {age:null, answers:new Array(QUESTIONS.length).fill(null), idx:0, done:[], gift:null, act:null, own:"", pledged:false, did:false, finished:false}; }
+  var state = fresh();
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){} }
+  function load(){
+    try {
+      var s = JSON.parse(localStorage.getItem(KEY) || "null");
+      if (!s || !Array.isArray(s.answers) || s.answers.length !== QUESTIONS.length) return null;
+      return s;
+    } catch(e){ return null; }
+  }
+
+  var $ = function(id){ return document.getElementById(id); };
+  var SCREENS = ["s-intro","s-age","s-q","s-done","s-pick","s-pledge"];
+  function go(id, back){
+    SCREENS.forEach(function(s){ var el = $(s); el.hidden = s !== id; el.classList.remove("in-fwd","in-back"); });
+    var el = $(id); void el.offsetWidth; el.classList.add(back ? "in-back" : "in-fwd");
+    window.scrollTo(0, 0);
+  }
+  var toastTimer;
+  function toast(t){ var el = $("toast"); el.textContent = t; el.classList.add("on"); clearTimeout(toastTimer); toastTimer = setTimeout(function(){ el.classList.remove("on"); }, 1800); }
+
+  /* ---------- Hero illustration ---------- */
+  function groundSVG(uid, risen){
+    return '<svg class="ground' + (risen ? " risen" : "") + '" viewBox="0 0 400 220" role="img" aria-label="Монета в земле, над ней росток">' +
+      '<defs><radialGradient id="glow-' + uid + '" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="var(--gold-hi)" stop-opacity=".7"/><stop offset="100%" stop-color="var(--gold-hi)" stop-opacity="0"/></radialGradient></defs>' +
+      '<rect x="0" y="0" width="400" height="86" fill="var(--sky)"/>' +
+      '<rect x="0" y="82" width="400" height="10" fill="var(--grass)"/>' +
+      '<rect x="0" y="92" width="400" height="44" fill="var(--soil-3)"/>' +
+      '<rect x="0" y="136" width="400" height="44" fill="var(--soil-2)"/>' +
+      '<rect x="0" y="180" width="400" height="40" fill="var(--soil)"/>' +
+      '<g fill="var(--soil)" opacity=".5"><circle cx="48" cy="112" r="4"/><circle cx="330" cy="120" r="5"/><circle cx="120" cy="160" r="3"/><circle cx="290" cy="164" r="4"/><circle cx="70" cy="200" r="5"/><circle cx="350" cy="204" r="3"/></g>' +
+      '<g fill="var(--grass)"><rect x="60" y="74" width="3" height="10" rx="1.5"/><rect x="66" y="70" width="3" height="14" rx="1.5"/><rect x="318" y="72" width="3" height="12" rx="1.5"/><rect x="324" y="76" width="3" height="8" rx="1.5"/></g>' +
+      '<g class="sprout"><rect x="198" y="54" width="4" height="30" rx="2" fill="var(--leaf)"/>' +
+        '<ellipse cx="187" cy="60" rx="12" ry="6" fill="var(--leaf)" transform="rotate(-25 187 60)"/>' +
+        '<ellipse cx="213" cy="54" rx="12" ry="6" fill="var(--leaf)" transform="rotate(25 213 54)"/></g>' +
+      '<g class="coin"><circle class="glow" cx="200" cy="184" r="48" fill="url(#glow-' + uid + ')"/>' +
+        '<g class="coin-face"><circle cx="200" cy="184" r="22" fill="var(--gold)"/>' +
+        '<circle cx="200" cy="184" r="15" fill="none" stroke="var(--gold-soft)" stroke-width="2.5"/>' +
+        '<rect x="197" y="174" width="6" height="20" rx="2" fill="var(--gold-soft)"/>' +
+        '<rect x="190" y="181" width="20" height="6" rx="2" fill="var(--gold-soft)"/></g></g>' +
+      '</svg>';
+  }
+  $("hero1").innerHTML = groundSVG("a", false);
+
+  function burst(){
+    var box = $("sparks"); box.innerHTML = "";
+    for (var i = 0; i < 22; i++){
+      var s = document.createElement("i");
+      if (i % 3 === 0) s.className = "star";
+      var ang = (Math.PI * 2) * (i / 22) + Math.random() * .3;
+      var dist = 70 + Math.random() * 70;
+      s.style.setProperty("--x", Math.round(Math.cos(ang) * dist * 1.4) + "px");
+      s.style.setProperty("--y", Math.round(Math.sin(ang) * dist - 20) + "px");
+      s.style.setProperty("--d", (0.55 + Math.random() * 0.35).toFixed(2) + "s");
+      box.appendChild(s);
+    }
+  }
+
+  /* ---------- Intro ---------- */
+  var saved = load();
+  if (saved && saved.pledged){ $("b-mine").hidden = false; }
+  else if (saved && saved.age && saved.answers.some(function(a){ return a != null; })){ $("b-resume").hidden = false; }
+  $("b-start").addEventListener("click", function(){ state = fresh(); save(); renderAge(); go("s-age"); });
+  $("b-resume").addEventListener("click", function(){
+    state = saved;
+    if (state.finished){ renderPick(false); go("s-pick"); } else { renderQ(); go("s-q"); }
+  });
+  $("b-mine").addEventListener("click", function(){ state = saved; renderPledge(); go("s-pledge"); });
+
+  /* ---------- Age ---------- */
+  function renderAge(){
+    var box = $("age-choices"); box.innerHTML = "";
+    AGES.forEach(function(a){
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "choice"; b.id = "age-" + a.id;
+      b.innerHTML = '<span class="ico" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="' + a.ico + '"/></svg></span><span class="t"><b></b><span class="sub"></span></span>';
+      b.querySelector("b").textContent = a.title;
+      b.querySelector(".sub").textContent = a.sub;
+      b.addEventListener("click", function(){ state.age = a.id; state.idx = 0; save(); renderQ(); go("s-q"); });
+      box.appendChild(b);
+    });
+  }
+  $("b-age-back").addEventListener("click", function(){ go("s-intro", true); });
+
+  /* ---------- Questions ---------- */
+  function setDig(frac){
+    var h = Math.round(frac * 56);
+    $("dig-shaft").setAttribute("height", h);
+    $("dig-shovel").style.transform = "translateY(" + h + "px)";
+    $("dig-coin").style.opacity = frac > .85 ? 1 : .55;
+  }
+  function renderQ(swap){
+    var i = state.idx, q = QUESTIONS[i];
+    $("q-count").textContent = (i + 1) + " / " + QUESTIONS.length;
+    setDig(i / QUESTIONS.length);
+    $("q-text").textContent = q.text;
+    var box = $("q-opts"); box.innerHTML = "";
+    SCALE.forEach(function(o){
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "opt"; b.id = "opt-" + o.v;
+      b.setAttribute("aria-pressed", state.answers[i] === o.v ? "true" : "false");
+      var dots = '<span class="dots" aria-hidden="true">';
+      for (var d = 1; d <= 5; d++) dots += '<s class="' + (d <= o.v ? "on" : "") + '"></s>';
+      b.innerHTML = dots + '</span><span></span>';
+      b.lastChild.textContent = o.t;
+      b.addEventListener("click", function(){ answer(o.v, b); });
+      box.appendChild(b);
+    });
+    if (swap){ var c = $("q-card"); c.classList.remove("q-swap"); void c.offsetWidth; c.classList.add("q-swap"); }
+  }
+  var busy = false;
+  function answer(v, btn){
+    if (busy) return; busy = true;
+    state.answers[state.idx] = v; save();
+    Array.prototype.forEach.call($("q-opts").children, function(c){ c.setAttribute("aria-pressed", "false"); });
+    if (btn) btn.setAttribute("aria-pressed", "true");
+    setDig((state.idx + 1) / QUESTIONS.length);
+    setTimeout(function(){
+      busy = false;
+      if (state.idx < QUESTIONS.length - 1){ state.idx++; save(); renderQ(true); }
+      else { renderDone(); go("s-done"); }
+    }, 260);
+  }
+  $("b-back").addEventListener("click", function(){
+    if (state.idx > 0){ state.idx--; save(); renderQ(true); } else { renderAge(); go("s-age", true); }
+  });
+  document.addEventListener("keydown", function(e){
+    if ($("s-q").hidden) return;
+    var n = parseInt(e.key, 10);
+    if (n >= 1 && n <= 5) answer(n, $("opt-" + n));
+    if (e.key === "ArrowLeft") $("b-back").click();
+  });
+  if (window.matchMedia && window.matchMedia("(pointer: coarse)").matches) $("kbd-hint").hidden = true;
+
+  /* ---------- Already doing ---------- */
+  function renderDone(){
+    var box = $("done-chips"); box.innerHTML = "";
+    GIFTS.forEach(function(g){
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "chip"; b.id = "done-" + g.id;
+      b.setAttribute("aria-pressed", state.done.indexOf(g.id) >= 0 ? "true" : "false");
+      b.innerHTML = '<span class="tick" aria-hidden="true"></span><span></span>';
+      b.lastChild.textContent = g.doing;
+      b.addEventListener("click", function(){
+        var k = state.done.indexOf(g.id);
+        if (k >= 0) state.done.splice(k, 1); else state.done.push(g.id);
+        b.setAttribute("aria-pressed", k >= 0 ? "false" : "true"); save();
+      });
+      box.appendChild(b);
+    });
+  }
+  $("b-done-back").addEventListener("click", function(){ state.idx = QUESTIONS.length - 1; renderQ(); go("s-q", true); });
+  $("b-finish").addEventListener("click", function(){
+    state.finished = true; state.gift = null; state.act = null; state.own = ""; state.pledged = false; state.did = false; save();
+    renderPick(true); go("s-pick");
+  });
+
+  /* ---------- Scoring ---------- */
+  function ranking(){
+    var s = GIFTS.map(function(){ return {sum:0, fives:0}; });
+    QUESTIONS.forEach(function(q, i){ var a = state.answers[i]; if (a == null) return; s[q.gift].sum += a; if (a === 5) s[q.gift].fives++; });
+    return GIFTS.map(function(g, i){ return {i:i, sum:s[i].sum, fives:s[i].fives}; })
+      .sort(function(a, b){ return (b.sum - a.sum) || (b.fives - a.fives) || (a.i - b.i); });
+  }
+  function buriedList(){
+    var r = ranking();
+    var list = r.filter(function(x){ return state.done.indexOf(GIFTS[x.i].id) < 0; });
+    var allServe = list.length === 0;
+    return {all:r, top:(allServe ? r : list).slice(0, 3), allServe:allServe};
+  }
+  function actionsFor(gi){
+    var age = state.age || "y";
+    return GIFTS[gi].acts.map(function(a, k){ return {k:k, text:a[0], ages:a[1]}; }).filter(function(a){ return a.ages.indexOf(age) >= 0; });
+  }
+
+  /* ---------- Pick ---------- */
+  function renderPick(celebrate){
+    var b = buriedList();
+    $("hero2").innerHTML = groundSVG("b", !celebrate) + '<div class="sparks" id="sparks"></div>';
+    if (celebrate){
+      setTimeout(function(){ var gEl = $("hero2").querySelector(".ground"); if (gEl) gEl.classList.add("risen"); burst(); }, 300);
+    }
+    $("pick-title").textContent = b.allServe ? "Ты уже служишь везде. Куда копнуть глубже?" : "Вот что у тебя закопано";
+    if (state.gift === null || b.top.every(function(x){ return x.i !== state.gift; })) state.gift = b.top[0].i;
+
+    var box = $("gift-cards"); box.innerHTML = "";
+    b.top.forEach(function(x, n){
+      var g = GIFTS[x.i];
+      var el = document.createElement("button");
+      el.type = "button"; el.className = "card-opt rise"; el.id = "gift-" + g.id;
+      el.style.animationDelay = (celebrate ? 0.9 + n * 0.12 : n * 0.06) + "s";
+      el.setAttribute("role", "radio");
+      el.setAttribute("aria-checked", x.i === state.gift ? "true" : "false");
+      el.innerHTML = '<span class="card-top"><span class="tick" aria-hidden="true"></span><span class="nm"></span>' + (n === 0 ? '<span class="badge">ярче всего</span>' : '') + '</span>' +
+        '<span class="meter" aria-hidden="true"><i style="width:0"></i></span>' +
+        '<span class="card-desc"></span>' +
+        '<span class="more"><blockquote class="verse"><span></span><cite></cite></blockquote></span>';
+      el.querySelector(".nm").textContent = g.name;
+      el.querySelector(".card-desc").textContent = g.desc;
+      el.querySelector(".verse span").textContent = "«" + g.verse + "»";
+      el.querySelector(".verse cite").textContent = g.ref;
+      var w = Math.max(6, (x.sum - 3) / 12 * 100);
+      setTimeout(function(){ el.querySelector(".meter i").style.width = w + "%"; }, celebrate ? 1100 + n * 120 : 60);
+      el.addEventListener("click", function(){
+        if (state.gift === x.i) return;
+        state.gift = x.i; state.act = null; save();
+        Array.prototype.forEach.call(box.children, function(c){ c.setAttribute("aria-checked", c === el ? "true" : "false"); });
+        renderActs(true);
+      });
+      box.appendChild(el);
+    });
+    renderActs(false);
+
+    var list = $("ranks"); list.innerHTML = "";
+    b.all.forEach(function(x){
+      var g = GIFTS[x.i];
+      var li = document.createElement("li");
+      var isBuried = state.done.indexOf(g.id) < 0;
+      li.className = "rank" + (isBuried ? " buried" : "");
+      li.innerHTML = '<span class="rank-name"></span><span class="rank-val"></span><span class="rank-bar"><i></i></span>';
+      li.querySelector(".rank-name").textContent = g.name;
+      if (!isBuried){ var em = document.createElement("em"); em.textContent = "уже служу"; li.querySelector(".rank-name").appendChild(em); }
+      li.querySelector(".rank-val").textContent = x.sum + " из 15";
+      li.querySelector(".rank-bar i").style.width = Math.max(4, (x.sum - 3) / 12 * 100) + "%";
+      list.appendChild(li);
+    });
+  }
+
+  function renderActs(animate){
+    $("act-title").textContent = "Что ты сделаешь до субботы, " + nextSaturday() + "?";
+    var box = $("acts"); box.innerHTML = "";
+    var acts = actionsFor(state.gift);
+    acts.forEach(function(a, n){ box.appendChild(actButton(a.k, a.text, n, animate)); });
+    box.appendChild(actButton("own", "Свой вариант — напишу сам", acts.length, animate));
+    $("own-text").hidden = state.act !== "own";
+    $("own-text").value = state.own || "";
+    updatePledgeBtn();
+  }
+  function actButton(key, text, n, animate){
+    var b = document.createElement("button");
+    b.type = "button"; b.className = "act" + (animate ? " rise" : ""); b.id = "act-" + key;
+    if (animate) b.style.animationDelay = (n * 0.05) + "s";
+    b.setAttribute("role", "radio");
+    b.setAttribute("aria-checked", state.act === key ? "true" : "false");
+    b.innerHTML = '<span class="tick" aria-hidden="true"></span><span></span>';
+    b.lastChild.textContent = text;
+    b.addEventListener("click", function(){
+      state.act = key; save();
+      Array.prototype.forEach.call($("acts").children, function(c){ c.setAttribute("aria-checked", c === b ? "true" : "false"); });
+      var own = $("own-text"); own.hidden = key !== "own";
+      if (key === "own") setTimeout(function(){ own.focus(); }, 50);
+      updatePledgeBtn();
+    });
+    return b;
+  }
+  $("own-text").addEventListener("input", function(e){ state.own = e.target.value; save(); updatePledgeBtn(); });
+  function updatePledgeBtn(){
+    var ok = state.act !== null && (state.act !== "own" || (state.own || "").trim().length > 2);
+    $("b-pledge").disabled = !ok;
+  }
+  $("b-pledge").addEventListener("click", function(){
+    state.pledged = true; state.did = false; save();
+    renderPledge(); go("s-pledge");
+    toast("Записано. Помолись об этом сегодня");
+  });
+
+  /* ---------- Pledge ---------- */
+  function nextSaturday(){
+    var d = new Date(); var add = (6 - d.getDay() + 7) % 7; if (add === 0) add = 7;
+    d.setDate(d.getDate() + add);
+    try { return d.toLocaleDateString("ru-RU", {day:"numeric", month:"long"}); } catch(e){ return "следующей субботы"; }
+  }
+  function taskText(){
+    if (state.act === "own") return (state.own || "").trim();
+    var a = GIFTS[state.gift].acts[state.act];
+    return a ? a[0] : "";
+  }
+  function renderPledge(){
+    var g = GIFTS[state.gift];
+    $("pl-label").textContent = "Моё дело до субботы, " + nextSaturday();
+    $("pl-gift").textContent = g.name;
+    $("pl-task").textContent = taskText();
+    $("pl-verse").innerHTML = "<span></span><cite></cite>";
+    $("pl-verse").firstChild.textContent = "«" + g.verse + "»";
+    $("pl-verse").lastChild.textContent = g.ref;
+    setDid(state.did);
+  }
+  function setDid(on){
+    $("b-did").setAttribute("aria-checked", on ? "true" : "false");
+    $("did-text").textContent = on ? "Сделано! Слава Богу" : "Отметь, когда сделаешь";
+    $("joy").hidden = !on;
+  }
+  $("b-did").addEventListener("click", function(){
+    state.did = !state.did; save(); setDid(state.did);
+    if (state.did){ var j = $("joy"); j.classList.remove("rise"); void j.offsetWidth; j.classList.add("rise"); }
+  });
+  $("b-change").addEventListener("click", function(){ renderPick(false); go("s-pick", true); });
+  $("b-restart").addEventListener("click", function(){ state = fresh(); save(); renderAge(); go("s-age"); });
+  $("b-copy").addEventListener("click", function(){
+    var g = GIFTS[state.gift];
+    var text = "Мой закопанный талант: " + g.name + ".\nДело до субботы, " + nextSaturday() + ": " + taskText() + "\n«" + g.verse + "» (" + g.ref + ")";
+    function fallback(){ var ta = $("copy-fallback"); ta.value = text; ta.hidden = false; ta.focus(); ta.select(); toast("Выдели текст и скопируй"); }
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function(){ toast("Скопировано"); }, fallback);
+      else fallback();
+    } catch(e){ fallback(); }
+  });
+})();
+</script>
+
+</body>
+</html>
